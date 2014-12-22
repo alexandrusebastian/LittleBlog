@@ -88,11 +88,7 @@
 							</div>
 							  	<textarea name="articlecontent" rows="10" class="form-control" id="article_content_ins" placeholder="Article content *"></textarea><br>
 								<script>
-								CKEDITOR.replace( 'articlecontent',
-							    {
-							        filebrowserBrowseUrl : '/browser/browse.php?type=Images',
-							        filebrowserUploadUrl : '/uploader/upload.php?type=Files'
-							    });
+								CKEDITOR.replace( 'articlecontent' );
 								</script>
 							<div class="form-group left-inner-addon">
 								<span class="glyphicon glyphicon-tags"></span>
