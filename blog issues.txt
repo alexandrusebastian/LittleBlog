@@ -1,0 +1,11 @@
+*length of user input is not checked
+*user input is not sanitized
+*we should have url attribute in article class, to be used after the creation of an article
+*admin field is not present in user class/db
+*controller does not make any admin checks
+*db password(default root)
+*userID is not saeet for inserting the articles
+*add description for articles
+*user should be forbidden to put "_" inside article title
+*redirect user if entered unauthorised
+*search menu
