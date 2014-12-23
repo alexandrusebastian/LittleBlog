@@ -42,8 +42,8 @@
                     <li><a href="/LittleBlog/public/">Home</a></li>
                     <li class="active"><a href="about.html">About</a></li>
                     <li><a href="preview.html">Top Articles</a></li>
-                    <li><a href="preview.html">Search Article</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="/LittleBlog/public/searchArticles">Search Article</a></li>
+                    <li><a href="/LittleBlog/public/contact">Contact</a></li>
                 </ul>
 	      	</div> <!-- nav -->
 			<div class="row" id="content">

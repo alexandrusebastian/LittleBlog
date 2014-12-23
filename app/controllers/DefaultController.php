@@ -122,7 +122,16 @@
 			}
 		}
 
+		public function searchArticles() {
+			$article = $this->model('Article');
+			$this->view("searchArticles", []);
+		}
+
 		public function about() {
 			$this->view('about');
+		}
+
+		public function contact() {
+			$this->view('contact');
 		}
 	}

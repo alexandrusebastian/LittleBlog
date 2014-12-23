@@ -1,15 +1,15 @@
 <?php
-	class Article {
-		public $articleid  = '';
-		public $userid = '';
-		public $title = '';
-		public $content = '';
-		public $tags = '';
-		public $rating  = '';
-		public $views  = '';
-		public $date = '';
+class Article {
+	public $articleid  = '';
+	public $userid = '';
+	public $title = '';
+	public $content = '';
+	public $tags = '';
+	public $rating  = '';
+	public $views  = '';
+	public $date = '';
 
-		public function insert(){
+	public function insert(){
 			//Required data for 
 			/*if($userid = '' || $title = '' || $content = '') {
 				//return 'Please fill the fields marked by *';
@@ -20,7 +20,7 @@
 				$this->tags = mysql_real_escape_string($this->tags);
 				$this->views = 0;
 				$this->rating = 0;
-								
+
 				//Create a connection with the database
 				require_once ('mysqli_connect.php');
 
@@ -36,7 +36,7 @@
 
 					//Insert article in database
 					$query = "INSERT INTO articles (USERID,	TITLE, CONTENT,	TAGS, RATING, VIEWS) 
-								VALUES ('$row', '$this->title', '$this->content', '$this->tags', '0', '0')";
+					VALUES ('$row', '$this->title', '$this->content', '$this->tags', '0', '0')";
 					if($dbc->query($query) === TRUE) {
 						return '';
 					}else {
@@ -56,40 +56,40 @@
 
 				if ($response->num_rows === 1) {
 					($row = $response->fetch_assoc());
-			   		
-			   			if(isset($parameters[0])){
-			   				$title =  preg_replace("/[^\w]+/", "-", $row['TITLE']);
-				   			if($parameters[0] === $title) {
-				   				$this->title =  $row['TITLE'];
-								$this->content = $row['CONTENT'];
-								$this->rating = $row['RATING'];
-								$this->views = $row['VIEWS'] + 1;
-								$this->date = $row['DATE'];
-								$this->userid = $row['USERID'];
 
-								if(isset($_SESSION['uname'])) {
-									$uname = $_SESSION['uname'];
-									$userQuery = "SELECT FNAME, LNAME FROM users WHERE UNAME = '$uname'";
-									$response = mysqli_query($dbc, $userQuery);
+					if(isset($parameters[0])){
+						$title =  preg_replace("/[^\w]+/", "-", $row['TITLE']);
+						if($parameters[0] === $title) {
+							$this->title =  $row['TITLE'];
+							$this->content = $row['CONTENT'];
+							$this->rating = $row['RATING'];
+							$this->views = $row['VIEWS'] + 1;
+							$this->date = $row['DATE'];
+							$this->userid = $row['USERID'];
+
+							if(isset($_SESSION['uname'])) {
+								$uname = $_SESSION['uname'];
+								$userQuery = "SELECT FNAME, LNAME FROM users WHERE UNAME = '$uname'";
+								$response = mysqli_query($dbc, $userQuery);
 
 									//If a result was found
-									if ($response->num_rows > 0) 
-									{
-										($row = $response->fetch_assoc());
-									}
+								if ($response->num_rows > 0) 
+								{
+									($row = $response->fetch_assoc());
+								}
 
-									$this->userid = $row['FNAME'] . ' '	. $row['LNAME'];
+								$this->userid = $row['FNAME'] . ' '	. $row['LNAME'];
 
-									$updateQuery = "UPDATE articles SET VIEWS='$this->views' WHERE ARTICLEID='$this->articleid'";
+								$updateQuery = "UPDATE articles SET VIEWS='$this->views' WHERE ARTICLEID='$this->articleid'";
 
-									if($dbc->query($updateQuery) === FALSE) {
-										return 'Could not communicate with the database';
-									}
+								if($dbc->query($updateQuery) === FALSE) {
+									return 'Could not communicate with the database';
 								}
 							}
-						} else {
-							return "URL not valid";
-						}		    		
+						}
+					} else {
+						return "URL not valid";
+					}		    		
 					
 					return '';
 				} else {
@@ -116,5 +116,24 @@
 				}
 			}
 			return $array;
+		}
+
+		public static function searchArticles($parameters = []){
+			$array = [];
+
+			require_once ('mysqli_connect.php');
+			foreach( $parameters as $param ) {
+				//$query = "SELECT ARTICLEID, TITLE FROM articles WHERE tags like '%$param%'";
+				$query = "SELECT ARTICLEID, TITLE FROM articles WHERE title like '%$param%' OR tags like'%$param%' OR content like'%$param%'";
+				$response = mysqli_query($dbc, $query);
+				if ($response->num_rows >= 1) {
+					for($i = 0; $i < $response->num_rows; $i++) {
+						$row = $response->fetch_assoc();	$t=$row['TITLE'];
+						$array[$i] = $row['TITLE'] . '_' . $row['ARTICLEID'];
+					}
+				}
+
+				return $array;			
+			}
 		}
 	}
