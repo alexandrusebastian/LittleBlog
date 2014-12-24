@@ -54,7 +54,7 @@
 		        <ul class="nav nav-justified">
 		          <li class="active"><a href="index.html">Home</a></li>
                   <li><a href="/LittleBlog/public/about">About</a></li>
-		          <li><a href="preview.html">Top Articles</a></li>
+		          <li><a href="/LittleBlog/public/topArticles">Top Articles</a></li>
 		          <li><a href="/LittleBlog/public/searchArticles">Search Article</a></li>
 		          <li><a href="/LittleBlog/public/contact">Contact</a></li>
 		        </ul>

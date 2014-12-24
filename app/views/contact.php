@@ -30,10 +30,7 @@
 		          	<a href="#"><img src="images/templatemo_logo.jpg" alt="fantasy" class="templatemo_logo"></a>
 		        </div>
       			<form  action="#" method="get" class="navbar-form navbar-right" role="search">
-      				<div class="form-group">
-      					<input type="text" class="form-control" placeholder="Search" id="keyword" name="keyword">
-      				</div>
-      				<button type="submit" class="btn btn-default" name="Search">Go</button>
+      				
       			</form>
 			</div>
             <img src="images/header_image1.jpg" alt="header image" class="img-responsive cleaner">
@@ -41,7 +38,7 @@
                 <ul class="nav nav-justified">
                     <li><a href="/LittleBlog/public/">Home</a></li>
                     <li><a href="/LittleBlog/public/about">About</a></li>
-                    <li><a href="preview.html">Top Articles</a></li>
+                    <li><a href="/LittleBlog/public/topArticles">Top Articles</a></li>
                     <li><a href="/LittleBlog/public/searchArticles">Search Article</a></li>
                     <li class="active"><a href="/LittleBlog/public/contact">Contact</a></li>
                 </ul>
@@ -54,26 +51,35 @@
                   <p>You may leave us a message for any kind of business matter or personal greeting. Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow">XHTML</a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow">CSS</a>. </p>
 				</div>
 			</div>
-			<form action="#" method="post" id="contact_form" role="form">
+			<form action="/LittleBlog/public/submitContact" method="post" id="contact_form" role="form">
+				<h3>
+								<font color="red">
+									<?php
+										if(array_key_exists('error_sin', $data)) {
+											echo '&nbsp&nbsp&nbsp' .  $data['error_sin'];
+										} 
+									?>
+								</font>
+							</h3>
 				<div class="row">
 					<div class="col-md-5">
 						<div class="form-group left-inner-addon">
 							<span class="glyphicon glyphicon-user"></span>
-							<input name="name" type="text" class="form-control" id="input_name" placeholder="Name">
+							<input name="name" type="text" class="form-control" id="input_name" placeholder="Name*">
 						</div>
 						<div class="form-group left-inner-addon">
 							<span class="glyphicon glyphicon-envelope"></span>
-							<input name="email" type="email" class="form-control" id="input_email" placeholder="Email">
+							<input name="email" type="email" class="form-control" id="input_email" placeholder="Email*">
 						</div>
 						<div class="form-group left-inner-addon">
 							<span class="glyphicon glyphicon-earphone"></span>
-							<input name="phone" type="tel" class="form-control" id="input_tel" placeholder="Phone">
+							<input name="phone" type="tel" class="form-control" id="input_tel" placeholder="Phone*">
 						</div>
 					</div> 
 					<div class="col-md-7">
 						<div class="form-group left-inner-addon">
 							<span class="glyphicon glyphicon-comment"></span>
-						  	<textarea name="message" rows="6" class="form-control" id="input_message" placeholder="Message..."></textarea><br>
+						  	<textarea name="message" rows="6" class="form-control" id="input_message" placeholder="Message*..."></textarea><br>
 							<button type="submit" class="btn btn-primary">Send</button>
 							<button type="reset" class="btn btn-default right">Reset</button>
 						</div>

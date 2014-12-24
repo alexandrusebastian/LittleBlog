@@ -136,4 +136,22 @@ class Article {
 				return $array;			
 			}
 		}
+
+		public function topArticles() {
+			$array = [];
+
+			require_once ('mysqli_connect.php');
+			$query = "SELECT ARTICLEID, TITLE FROM articles ORDER BY VIEWS desc";
+
+			$response = mysqli_query($dbc, $query);
+				if ($response->num_rows >= 1) {
+					for($i = 0; $i < $response->num_rows; $i++) {
+						$row = $response->fetch_assoc();	$t=$row['TITLE'];
+						$array[$i] = $row['TITLE'] . '_' . $row['ARTICLEID'];
+					}
+				}
+
+				return $array;	
+
+		}
 	}

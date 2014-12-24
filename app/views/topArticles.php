@@ -50,15 +50,15 @@
                 <ul class="nav nav-justified">
                   <li><a href="/LittleBlog/public/">Home</a></li>
                   <li><a href="/LittleBlog/public/about">About</a></li>
-		          <li><a href="/LittleBlog/public/topArticles">Top Articles</a></li>
-		          <li class="active"><a href="/LittleBlog/public/searchArticles">Search Article</a></li>
+		          <li class="active"><a href="/LittleBlog/public/topArticles">Top Articles</a></li>
+		          <li><a href="/LittleBlog/public/searchArticles">Search Article</a></li>
 		          <li><a href="/LittleBlog/public/contact">Contact</a></li>
                 </ul>
             </div> 
             <div class="row" id="content">
             	<div class="col-md-8">
 				<h3>
-					Search Articles by Keywords
+					Top Articles (by number of views)
 				</h3>
 			</div>
 			</div>		
@@ -66,7 +66,7 @@
 				<div class="row">					
 					<div class="col-md-9">
 						<form action="/LittleBlog/public/searchArticles" method="post" id="contact_form" role="form" >
-							<h2>Search Articles</h2>
+							<h2>Top Articles</h2>
 							<h3>
 								<font color="red">
 									<?php
@@ -76,33 +76,21 @@
 									?>
 								</font>
 							</h3>
-							<div class="form-group left-inner-addon" >
-								<span class="glyphicon glyphicon-chevron-up"></span>
-								<input name="search" type="text" class="form-control" id="search_id" placeholder="Search Keywords" >
-							</div>
-							<div class="form-group left-inner-addon">
-									<button type="submit" name = "signin" class="btn btn-primary">Search</button>
-									<br></br>
-							</div>	
-							<?php
-								if(!empty($_POST['search'])){
-									$articles = preg_replace('#\s+#', ' ', $_POST['search']);
-									$articles = explode(" ", rtrim($articles));
-									//(Article::searchArticles($articles));
-									$articles = Article::searchArticles($articles);
-									foreach($articles as $art) {
-										$title = explode('_', $art);
-										$id = $title[1];
-										$title =  preg_replace("/[^\w]+/", "-", $title[0]);
-										echo 
-											'<div class="col-xs-6 col-sm-3 col-md-3">
-												<a href="searchArticle/' . $title . "_" . $id . '" class="thumbnail">
-													<img src="/LittleBlog/public/images/templatemo_image_02.jpg" alt="NO IMAGE" class="img-responsive">
-													<p> ' . ($title) . '</p>
-												</a>
-											</div>';
-									}
-								}
+							
+							<?php								
+								$articles = Article::topArticles();
+								foreach($articles as $art) {
+									$title = explode('_', $art);
+									$id = $title[1];
+									$title =  preg_replace("/[^\w]+/", "-", $title[0]);
+									echo 
+										'<div class="col-xs-6 col-sm-3 col-md-3">
+											<a href="searchArticle/' . $title . "_" . $id . '" class="thumbnail">
+												<img src="/LittleBlog/public/images/templatemo_image_02.jpg" alt="NO IMAGE" class="img-responsive">
+												<p> ' . ($title) . '</p>
+											</a>
+										</div>';
+								}								
 							?>
 						</form>
 

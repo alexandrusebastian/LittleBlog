@@ -131,7 +131,46 @@
 			$this->view('about');
 		}
 
-		public function contact() {
-			$this->view('contact');
+		public function contact($error = '') {
+			$data = [];
+			if($error != ''){
+				$data['error_sin'] = $error;
+			}
+			$this->view('contact', $data);
+		}
+
+		public function topArticles() {
+			$article = $this->model('Article');
+			$this->view('topArticles');
+		}
+
+		public function submitContact()	{
+			$contact = $this->model('Contact');
+			$contact->name =  $_POST['name'];
+			$contact->email =  $_POST['email'];
+			$contact->phone =  $_POST['phone'];
+			$contact->content =  $_POST['message'];
+			if($contact->name === '') {
+				$this->contact('Please complete your name!');
+			}
+			else if($contact->email === '') {
+				$this->contact('Please complete your email!');
+			}
+			else if($contact->phone === '') {
+				$this->contact('Please complete your phone!');
+			}
+			else if($contact->content === '') {
+				$this->contact('Please complete your content!');
+			}
+			else {
+				if($contact->submitContact() === '') {
+					$this->contact("Message sent!");
+				} 
+				else {
+					$this->contact("Error at submitting contact.");
+				}
+			}
+
+
 		}
 	}
