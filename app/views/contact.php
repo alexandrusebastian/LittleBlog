@@ -30,7 +30,19 @@
 		          	<a href="#"><img src="images/templatemo_logo.jpg" alt="fantasy" class="templatemo_logo"></a>
 		        </div>
       			<form  action="#" method="get" class="navbar-form navbar-right" role="search">
-      				
+      				<div class="form-group">
+      						<?php
+      							//If a user exists, show his name
+      						if (isset($_SESSION['user'])) {
+      							echo 'Hello, ' . $_SESSION['user'] . '!';
+
+      							echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      						}
+							?>
+							<div>
+								<a href="/LittleBlog/public/signOut">Sign out</a></p>
+							</div>
+      				</div>
       			</form>
 			</div>
             <img src="images/header_image1.jpg" alt="header image" class="img-responsive cleaner">

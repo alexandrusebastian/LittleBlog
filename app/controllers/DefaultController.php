@@ -23,12 +23,14 @@
 
 		//Sign in routine
 		public function signIn(){
-			//If a user landed here by mistake, redirect him
+			//If a user landed here by mistake, redirect him to home
 			if (isset($_SESSION['user'])) {
+				$article = $this->model('Article');
 				$this->view('home', Article::getNewest());
 			}else {			
 				//Create an user object
 				$user = $this->model('User');
+				
 				//Fill the username and password given by the user, if enetered
 				if(isset($_POST['unamesin']) && isset($_POST['pwdsin'])) {
 					$user->uname = $_POST['unamesin'];
@@ -38,7 +40,8 @@
 						//Remember that this user successfully signed in
 						$_SESSION['uname'] = $user->uname;		
 		                $_SESSION['user'] = $user->fname . ' ' . $user->lname; 
-						$this->view('home',  []);
+		                $article = $this->model('Article');
+						@$this->view('home',  Article::getNewest());
 					}else{
 						$this->view('login', ['error_sin' => $returned]);
 					}
@@ -88,89 +91,128 @@
 		}
 
 		public function insertArticle(){
-			//Display the view for inserting articles
-			$this->view('insertArticle', []);
+			if (!isset($_SESSION['user']))
+			{
+				$this->view('login', []);
+			}
+			else 
+			{				
+				//Display the view for inserting articles
+				$this->view('insertArticle', []);
+			}
 		}
 
 		public function submitArticle(){
-			//In order to sublmit an article, the user should enter the title, content and tags
-			$article = $this->model('Article');
-			$article->title = $_POST['articletitle'];
-			$article->content = $_POST['articlecontent']; 
-			$article->tags = $_POST['tags'];
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
+			}
+			else {
+				//In order to sublmit an article, the user should enter the title, content and tags
+				$article = $this->model('Article');
+				$article->title = $_POST['articletitle'];
+				$article->content = $_POST['articlecontent']; 
+				$article->tags = $_POST['tags'];
 
-			if(($returned = $article->insert()) === "") {
-				$this->view('articlePreview',['article'=>$article]);
-			} else {
-				$err = "Error " . $returned;
-				$this->view('home',['message'=>$err]);
+				if(($returned = $article->insert()) === "") {
+					$this->view('articlePreview',['article'=>$article]);
+				} else {
+					$err = "Error " . $returned;
+					$this->view('home',['message'=>$err]);
+				}
 			}
 		}
 
 		public function searchArticle($parameters = ''){
-			
-			if($parameters === '') 
-				echo "Not found";
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
+			}
+			else {
+				if($parameters === '') 
+					echo "Not found";
 
-			$article = $this->model('Article');
+				$article = $this->model('Article');
 
-			$parameters = explode('_', $parameters);
-			if(($result = $article->search($parameters)) === '') {
-				$this->view("articlePreview", ['article' => $article]);
-			} else {
-				echo $result;
+				$parameters = explode('_', $parameters);
+				if(($result = $article->search($parameters)) === '') {
+					$this->view("articlePreview", ['article' => $article]);
+				} else {
+					echo $result;
+				}
 			}
 		}
 
 		public function searchArticles() {
-			$article = $this->model('Article');
-			$this->view("searchArticles", []);
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
+			}
+			else {
+				$article = $this->model('Article');
+				$this->view("searchArticles", []);
+			}
 		}
 
 		public function about() {
-			$this->view('about');
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
+			}
+			else {
+				$this->view('about');
+			}
 		}
 
 		public function contact($error = '') {
-			$data = [];
-			if($error != ''){
-				$data['error_sin'] = $error;
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
 			}
-			$this->view('contact', $data);
+			else {
+				$data = [];
+				if($error != ''){
+					$data['error_sin'] = $error;
+				}
+				$this->view('contact', $data);
+			}
 		}
 
 		public function topArticles() {
-			$article = $this->model('Article');
-			$this->view('topArticles');
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
+			}
+			else {
+				$article = $this->model('Article');
+				$this->view('topArticles');
+			}
 		}
 
 		public function submitContact()	{
-			$contact = $this->model('Contact');
-			$contact->name =  $_POST['name'];
-			$contact->email =  $_POST['email'];
-			$contact->phone =  $_POST['phone'];
-			$contact->content =  $_POST['message'];
-			if($contact->name === '') {
-				$this->contact('Please complete your name!');
-			}
-			else if($contact->email === '') {
-				$this->contact('Please complete your email!');
-			}
-			else if($contact->phone === '') {
-				$this->contact('Please complete your phone!');
-			}
-			else if($contact->content === '') {
-				$this->contact('Please complete your content!');
+			if (!isset($_SESSION['user'])) {
+				$this->view('login', []);
 			}
 			else {
-				if($contact->submitContact() === '') {
-					$this->contact("Message sent!");
-				} 
+				$contact = $this->model('Contact');
+				$contact->name =  $_POST['name'];
+				$contact->email =  $_POST['email'];
+				$contact->phone =  $_POST['phone'];
+				$contact->content =  $_POST['message'];
+				if($contact->name === '') {
+					$this->contact('Please complete your name!');
+				}
+				else if($contact->email === '') {
+					$this->contact('Please complete your email!');
+				}
+				else if($contact->phone === '') {
+					$this->contact('Please complete your phone!');
+				}
+				else if($contact->content === '') {
+					$this->contact('Please complete your content!');
+				}
 				else {
-					$this->contact("Error at submitting contact.");
+					if($contact->submitContact() === '') {
+						$this->contact("Message sent!");
+					} 
+					else {
+						$this->contact("Error at submitting contact.");
+					}
 				}
 			}
-
-
 		}
 	}

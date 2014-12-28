@@ -31,7 +31,7 @@
 		        </div>
       			<form  action="#" method="get" class="navbar-form navbar-right" role="search">
       				<div class="form-group">
-      					<?php
+      						<?php
       							//If a user exists, show his name
       						if (isset($_SESSION['user'])) {
       							echo 'Hello, ' . $_SESSION['user'] . '!';
