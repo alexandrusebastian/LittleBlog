@@ -36,7 +36,9 @@
       						if (isset($_SESSION['user'])) {
       							echo 'Hello, ' . $_SESSION['user'] . '!';
 
-      							echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      							if(isset($_SESSION['admin'])) {      								
+      								echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      							}
       						}
 							?>
 							<div>

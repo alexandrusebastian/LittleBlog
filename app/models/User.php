@@ -6,6 +6,7 @@
 		public $password = '';
 		public $email = '';
 		public $uname = '';
+		public $admin = '';
 
 		//Function for inserting a new user in the database
 		public function insert(){
@@ -53,6 +54,9 @@
 						$this->lname = $row['LNAME'];
 						$this->email = $row['EMAIL'];
 						$this->uname = $row['UNAME'];
+						if($row['ISADMIN'] === '1') {
+							$this->admin = 'admin';
+						}
 					}else {
 						return "Wrong password";
 					}	        

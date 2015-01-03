@@ -40,7 +40,9 @@
       						if (isset($_SESSION['user'])) {
       							echo 'Hello, ' . $_SESSION['user'] . '!';
 
-      							echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      							if(isset($_SESSION['admin'])) {      								
+      								echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      							}
       						}
 							?>
 							<div>
@@ -52,7 +54,7 @@
 			<img src="/LittleBlog/public/images/header_image1.jpg" alt="header image" class="img-responsive cleaner">
 			<div class="masthead" id="masthead">
 		        <ul class="nav nav-justified">
-		          <li class="active"><a href="index.html">Home</a></li>
+		          <li class="active"><a href="/LittleBlog/public/">Home</a></li>
                   <li><a href="/LittleBlog/public/about">About</a></li>
 		          <li><a href="/LittleBlog/public/topArticles">Top Articles</a></li>
 		          <li><a href="/LittleBlog/public/searchArticles">Search Article</a></li>

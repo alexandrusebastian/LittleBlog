@@ -35,8 +35,9 @@
       							//If a user exists, show his name
       						if (isset($_SESSION['user'])) {
       							echo 'Hello, ' . $_SESSION['user'] . '!';
-
-      							echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      							if(isset($_SESSION['admin'])) {	
+      								echo "<div> <a href='/LittleBlog/public/insertArticle'>Insert Article</a> </div>";
+      							}
       						}
 							?>
 							<div>
@@ -49,13 +50,14 @@
 			<div class="masthead" id="masthead">
                 <ul class="nav nav-justified">
                     <li><a href="/LittleBlog/public/">Home</a></li>
-                    <li class="active"><a href="about.html">About</a></li>
+                    <li class="active"><a href="/LittleBlog/public/about">About</a></li>
                     <li><a href="/LittleBlog/public/topArticles">Top Articles</a></li>
                     <li><a href="/LittleBlog/public/searchArticles">Search Article</a></li>
                     <li><a href="/LittleBlog/public/contact">Contact</a></li>
                 </ul>
 	      	</div> <!-- nav -->
-			<div class="row" id="content">
+			
+			<!--<div class="row" id="content">
 				<div class="col-md-6">
 					<h2>Nam Imperdiet Aliquam</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed mauris eu ligula convallis fringilla. Morbi at tincidunt justo, non vestibulum nisi. Quisque dictum mi ut ullamcorper iaculis. Donec in mi ut nulla consectetur dictum. In elementum a urna quis feugiat. Quisque a porttitor metus. Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow">XHTML</a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow">CSS</a>.</p>
@@ -126,6 +128,16 @@
 	                        <p class="name"><a href="#">Harry</a> <span> - CEO of our company</span></p>
 						</blockquote>
 	                </div>
+				</div>
+			</div>
+		-->
+			<div class="row" id="content">
+            	<div class="col-md-12">
+            		<h2>LittleBlog is one of the best platforms for reading in the world! 
+						The best articles written by the most extraordinary people can be found on this website. 
+						Having a modern look and being customizable is one of the best choices for reading articles on the web. 
+						Please enjoy the flavour of LittleBlog.
+					</h2>				
 				</div>
 			</div>
 		</div>

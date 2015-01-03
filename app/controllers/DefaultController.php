@@ -45,7 +45,10 @@
 					if(($returned = $user->search()) === ''){
 						//Remember that this user successfully signed in
 						$_SESSION['uname'] = $user->uname;		
-		                $_SESSION['user'] = $user->fname . ' ' . $user->lname; 
+		                $_SESSION['user'] = $user->fname . ' ' . $user->lname;
+		                if($user->admin != '') {
+		                	$_SESSION['admin'] = $user->admin;
+		                }
 		                $article = $this->model('Article');
 						@$this->view('home',  Article::getNewest());
 					}else{
@@ -97,6 +100,7 @@
 					//Remember that this user successfully signed up	
 					$_SESSION['user'] = $user->fname . ' ' . $user->lname; 
 					$_SESSION['uname'] = $user->uname;
+					$article = $this->model('Article');
 					$this->view('home',  Article::getNewest());
 				}else {
 					//Show in the login page the error occured
@@ -111,6 +115,7 @@
 		public function signOut(){
 			unset($_SESSION['user']);
 			unset($_SESSION['uname']);
+			unset($_SESSION['admin']);
 			$this->view('login', []);
 		}
 
