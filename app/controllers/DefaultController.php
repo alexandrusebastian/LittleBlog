@@ -33,8 +33,14 @@
 				
 				//Fill the username and password given by the user, if enetered
 				if(isset($_POST['unamesin']) && isset($_POST['pwdsin'])) {
+
 					$user->uname = $_POST['unamesin'];
 					$user->password = $_POST['pwdsin'];
+
+					//XSS and SQLinjection protection; be safe kids!
+					$user->uname = mysql_real_escape_string(strip_tags($user->uname));
+					$user->password = mysql_real_escape_string(strip_tags($user->password));
+
 					//Search in database if the username and create a new view
 					if(($returned = $user->search()) === ''){
 						//Remember that this user successfully signed in
@@ -64,6 +70,28 @@
 
 			//Check if the passwords match
 			if($_POST['rpwdsup'] === $_POST['pwdsup']){
+				if(strlen($user->fname) > 10) {
+					$this->view('login', ['error_sup' => "First name should be less than 10 characters"]);
+				}
+				if(strlen($user->lname) > 20) {
+					$this->view('login', ['error_sup' => "Last name should be less than 20 characters"]);
+				}
+				if(strlen($user->uname) > 30) {
+					$this->view('login', ['error_sup' => "User name should be less than 30 characters"]);
+				}
+				if(strlen($user->password) > 30) {
+					$this->view('login', ['error_sup' => "Password should be less than 30 characters"]);
+				}
+				if(strlen($user->email) > 30) {
+					$this->view('login', ['error_sup' => "Email should be less than 30 characters"]);
+				}
+				//Protect against SQLinjection using mysql_real_escape_string; and striptags for XSS
+				$user->fname = mysql_real_escape_string(strip_tags($user->fname));
+				$user->lname = mysql_real_escape_string(strip_tags($user->lname));
+				$user->uname = mysql_real_escape_string(strip_tags($user->uname));
+				$user->password = mysql_real_escape_string(strip_tags($user->password));
+				$user->email = mysql_real_escape_string(strip_tags($user->email));
+
 				//Try to save the user in the database
 				if(($returned = $user->insert()) === '') {
 					//Remember that this user successfully signed up	
@@ -113,6 +141,18 @@
 				$article->content = $_POST['articlecontent']; 
 				$article->tags = $_POST['tags'];
 
+
+				//Protect against SQL injection and XSS
+				if(strlen($article->title) > 50) {
+					$this->view('home', ['message' => "The title should be less than 50 characters"]);
+				}
+				$article->title = mysql_real_escape_string(strip_tags($article->title));
+							
+				if(strlen($article->tags) > 100) {
+					$this->view('home', ['message' => "The tags should be less than 100 characters"]);
+				}				
+				$article->tags = mysql_real_escape_string(strip_tags($article->tags));
+
 				if(($returned = $article->insert()) === "") {
 					$this->view('articlePreview',['article'=>$article]);
 				} else {
@@ -133,6 +173,7 @@
 				$article = $this->model('Article');
 
 				$parameters = explode('_', $parameters);
+				$parameters = mysql_real_escape_string($parameters);
 				if(($result = $article->search($parameters)) === '') {
 					$this->view("articlePreview", ['article' => $article]);
 				} else {
@@ -193,6 +234,28 @@
 				$contact->email =  $_POST['email'];
 				$contact->phone =  $_POST['phone'];
 				$contact->content =  $_POST['message'];
+
+				if(strlen($contact->name) > 60) {
+					$this->contact('The name should not be greater than 60 characters.');
+				}
+				$contact->name = mysql_real_escape_string(strip_tags($contact->name));
+
+				if(strlen($contact->email) > 30) {
+					$this->contact('The email should not be greater than 30 characters.');
+				}
+				$contact->email = mysql_real_escape_string(strip_tags($contact->email));
+
+				if(strlen($contact->phone) > 20) {
+					$this->contact('The phone should not be greater than 20 characters.');
+				}
+				$contact->phone = mysql_real_escape_string(strip_tags($contact->phone));
+
+				if(strlen($contact->content) > 1200) {
+					$this->contact('The content should not be greater than 1200 characters.');
+				}
+				$contact->content = mysql_real_escape_string(strip_tags($contact->content));
+
+
 				if($contact->name === '') {
 					$this->contact('Please complete your name!');
 				}
