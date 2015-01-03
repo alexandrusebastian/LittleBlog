@@ -46,6 +46,7 @@
 						//Remember that this user successfully signed in
 						$_SESSION['uname'] = $user->uname;		
 		                $_SESSION['user'] = $user->fname . ' ' . $user->lname;
+		                $_SESSION['color'] = "white";
 		                if($user->admin != '') {
 		                	$_SESSION['admin'] = $user->admin;
 		                }
