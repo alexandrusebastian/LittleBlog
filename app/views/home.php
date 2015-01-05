@@ -28,10 +28,11 @@
 			
 			var color = "<?php echo $_SESSION['color'] ?>"
 
-   			document.body.style.background = (color == "white" ? "white" : "black")
+   			document.body.style.background = (color == "white" ? "lightGray" : "black")
 
    			var el = [ 
    				document.getElementsByTagName('div'), 
+   				document.getElementsByTagName('span'), 
 				document.getElementsByTagName('p'), 
 				document.getElementsByTagName('h1'), 
 				document.getElementsByTagName('h2'), 
@@ -57,14 +58,15 @@
 
 	</script>
 </head>
-<body onresize="refresh()" >
+<body onload="changeBackground()" onresize="refresh()" >
 	<div id="main_container">
 		<div class="container home">
 			<div class="header">
 
-				<div onclick="changeBackground()" class="navbar-header">
-		          	<img  src="/LittleBlog/public/images/templatemo_logo.jpg" alt="LittleBlog" class="templatemo_logo">
-		        </div>
+				<div class="navbar-header">
+					<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Click below to change theme</div>
+		          	<a href="/LittleBlog/public/changeBackgroundColor/home"><img  src="/LittleBlog/public/images/templatemo_logo.png" alt="LittleBlog" class="templatemo_logo"></a>
+		        </div> 
 
       			<form  action="#" method="get" class="navbar-form navbar-right" role="search">
       				<div class="form-group">

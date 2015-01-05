@@ -20,15 +20,49 @@
 		container.removeChild(masthead);
 		container.insertBefore(masthead, content);
 	}
+	function changeBackground() {		
+			
+			var color = "<?php echo $_SESSION['color'] ?>"
+
+   			document.body.style.background = (color == "white" ? "lightGray" : "black")
+
+   			var el = [ 
+   				document.getElementsByTagName('div'), 
+   				document.getElementsByTagName('span'),
+   				document.getElementsByTagName('input'),
+				document.getElementsByTagName('p'), 
+				document.getElementsByTagName('h1'), 
+				document.getElementsByTagName('h2'), 
+				document.getElementsByTagName('h3'), 
+				document.getElementsByTagName('h4') 
+			]; 
+			for (i in el) { 
+				for (j in el[i]) { 
+					if (el[i][j].style) {
+
+						 el[i][j].style.color = (color == "white" ? "black" : "white")
+					}
+
+				} 
+			} 
+
+			var list = document.getElementsByClassName("home")
+			for (var i = 0; i < list.length; i++) {
+				list[i].style.backgroundColor = (color == "white" ? "white" : "black")
+			}
+
+}
+
 	</script>
 </head>
-<body onresize="refresh()">
+<body onload="changeBackground()" onresize="refresh()" >
 	<div id="main_container">
-		<div class="container" id="contact">
+		<div class="container home">
 			<div class="header">
+
 				<div class="navbar-header">
-		          	<a href="#"><img src="images/templatemo_logo.jpg" alt="fantasy" class="templatemo_logo"></a>
-		        </div>
+					<img  src="/LittleBlog/public/images/templatemo_logo.png" alt="LittleBlog" class="templatemo_logo">
+		        </div> 
       			<form  action="#" method="get" class="navbar-form navbar-right" role="search">
       				<div class="form-group">
       						<?php
@@ -66,15 +100,15 @@
 				</div>
 			</div>
 			<form action="/LittleBlog/public/submitContact" method="post" id="contact_form" role="form">
-				<h3>
-								<font color="red">
-									<?php
-										if(array_key_exists('error_sin', $data)) {
-											echo '&nbsp&nbsp&nbsp' .  $data['error_sin'];
-										} 
-									?>
-								</font>
-							</h3>
+					<h3>
+						<font color="red">
+							<?php
+								if(array_key_exists('error_sin', $data)) {
+									echo '&nbsp&nbsp&nbsp' .  $data['error_sin'];
+								} 
+							?>
+						</font>
+					</h3>
 				<div class="row">
 					<div class="col-md-5">
 						<div class="form-group left-inner-addon">

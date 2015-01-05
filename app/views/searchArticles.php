@@ -20,15 +20,48 @@
 		container.removeChild(masthead);
 		container.insertBefore(masthead, content);
 	}
+	function changeBackground() {		
+			
+			var color = "<?php echo $_SESSION['color'] ?>"
+
+   			document.body.style.background = (color == "white" ? "lightGray" : "black")
+
+   			var el = [ 
+   				document.getElementsByTagName('div'), 
+   				document.getElementsByTagName('span'),
+				document.getElementsByTagName('p'), 
+				document.getElementsByTagName('h1'), 
+				document.getElementsByTagName('h2'), 
+				document.getElementsByTagName('h3'), 
+				document.getElementsByTagName('h4') 
+			]; 
+			for (i in el) { 
+				for (j in el[i]) { 
+					if (el[i][j].style) {
+
+						 el[i][j].style.color = (color == "white" ? "black" : "white")
+					}
+
+				} 
+			} 
+
+			var list = document.getElementsByClassName("home")
+			for (var i = 0; i < list.length; i++) {
+				list[i].style.backgroundColor = (color == "white" ? "white" : "black")
+			}
+
+}
+
 	</script>
 </head>
-<body onresize="refresh()">
+<body onload="changeBackground()" onresize="refresh()" >
 	<div id="main_container">
-		<div class="container" id="contact" >
+		<div class="container home">
 			<div class="header">
+
 				<div class="navbar-header">
-		          	<a href="#"><img src="/LittleBlog/public/images/templatemo_logo.jpg" alt="fantasy" class="templatemo_logo"></a>
-		        </div>
+					<img  src="/LittleBlog/public/images/templatemo_logo.png" alt="LittleBlog" class="templatemo_logo">
+		        </div> 
 		        <form  action="#" method="get" class="navbar-form navbar-right" role="search">
       				<div class="form-group">
       						<?php
@@ -98,7 +131,7 @@
 										$title =  preg_replace("/[^\w]+/", "-", $title[0]);
 										echo 
 											'<div class="col-xs-6 col-sm-3 col-md-3">
-												<a href="searchArticle/' . $title . "_" . $id . '" class="thumbnail">
+												<a class="home" href="searchArticle/' . $title . "_" . $id . '" class="thumbnail">
 													<img src="/LittleBlog/public/images/templatemo_image_02.jpg" alt="NO IMAGE" class="img-responsive">
 													<p> ' . ($title) . '</p>
 												</a>
@@ -128,5 +161,5 @@
 			</div>
 		</footer>
 	</div>
-</body>-->
+</body>
 </html>

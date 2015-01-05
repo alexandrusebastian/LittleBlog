@@ -46,7 +46,7 @@
 						//Remember that this user successfully signed in
 						$_SESSION['uname'] = $user->uname;		
 		                $_SESSION['user'] = $user->fname . ' ' . $user->lname;
-		                $_SESSION['color'] = "white";
+		                $_SESSION['color'] = "black";
 		                if($user->admin != '') {
 		                	$_SESSION['admin'] = $user->admin;
 		                }
@@ -102,7 +102,7 @@
 					$_SESSION['user'] = $user->fname . ' ' . $user->lname; 
 					$_SESSION['uname'] = $user->uname;
 					$article = $this->model('Article');
-					$this->view('home',  Article::getNewest());
+					$this->view('home',Article::getNewest());
 				}else {
 					//Show in the login page the error occured
 					$this->view('login', ['error_sup' => $returned]);
@@ -178,8 +178,8 @@
 
 				$article = $this->model('Article');
 
-				$parameters = explode('_', $parameters);
 				$parameters = mysql_real_escape_string($parameters);
+				$parameters = explode('_', $parameters);
 				if(($result = $article->search($parameters)) === '') {
 					$this->view("articlePreview", ['article' => $article]);
 				} else {
@@ -283,5 +283,11 @@
 					}
 				}
 			}
+		}
+
+		public function changeBackgroundColor() {
+			 $_SESSION['color']==='white' ?  $_SESSION['color']='black' :  $_SESSION['color']='white';
+			 $article = $this->model('Article');
+			 $this->view('home', Article::getNewest());
 		}
 	}

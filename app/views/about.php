@@ -7,9 +7,9 @@
 	<title>About Little Blog</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/justified-nav.css" rel="stylesheet" type="text/css">
-	<link href="css/templatemo_style.css" rel="stylesheet" type="text/css">
+	<link href="/LittleBlog/public/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/LittleBlog/public/css/justified-nav.css" rel="stylesheet" type="text/css">
+	<link href="/LittleBlog/public/css/templatemo_style.css" rel="stylesheet" type="text/css">
 
 	<script>
 	function refresh()
@@ -20,19 +20,53 @@
 		container.removeChild(masthead);
 		container.insertBefore(masthead, content);
 	}
+
+		function changeBackground() {		
+			
+			var color = "<?php echo $_SESSION['color'] ?>"
+
+   			document.body.style.background = (color == "white" ? "lightGray" : "black")
+
+   			var el = [ 
+   				document.getElementsByTagName('div'), 
+   				document.getElementsByTagName('span'), 
+				document.getElementsByTagName('p'), 
+				document.getElementsByTagName('h1'), 
+				document.getElementsByTagName('h2'), 
+				document.getElementsByTagName('h3'), 
+				document.getElementsByTagName('h4') 
+			]; 
+			for (i in el) { 
+				for (j in el[i]) { 
+					if (el[i][j].style) {
+
+						 el[i][j].style.color = (color == "white" ? "black" : "white")
+					}
+
+				} 
+			} 
+
+			var list = document.getElementsByClassName("home")
+			for (var i = 0; i < list.length; i++) {
+				list[i].style.backgroundColor = (color == "white" ? "white" : "black")
+			}
+
+}
+
 	</script>
 </head>
-<body onresize="refresh()">
+<body onload="changeBackground()" onresize="refresh()" >
 	<div id="main_container">
-		<div class="container" id="about">
+		<div class="container home">
 			<div class="header">
+
 				<div class="navbar-header">
-		          	<a href="#"><img src="images/templatemo_logo.jpg" alt="fantasy" class="templatemo_logo"></a>
-		        </div>
+		          	<img  src="/LittleBlog/public/images/templatemo_logo.png" alt="LittleBlog" class="templatemo_logo">
+		        </div> 
       			<form  action="#" method="get" class="navbar-form navbar-right" role="search">
       				<div class="form-group">
       						<?php
-      							//If a user exists, show his name
+      						//If a user exists, show his name
       						if (isset($_SESSION['user'])) {
       							echo 'Hello, ' . $_SESSION['user'] . '!';
       							if(isset($_SESSION['admin'])) {	
@@ -46,7 +80,7 @@
       				</div>
       			</form>
 			</div>			
-		    <img src="images/header_image1.jpg" alt="header image" class="img-responsive cleaner">
+		    <img src="/LittleBlog/public/images/header_image1.jpg" alt="header image" class="img-responsive cleaner">
 			<div class="masthead" id="masthead">
                 <ul class="nav nav-justified">
                     <li><a href="/LittleBlog/public/">Home</a></li>
@@ -131,7 +165,7 @@
 				</div>
 			</div>
 		-->
-			<div class="row" id="content">
+			<div class="row home" id="content">
             	<div class="col-md-12">
             		<h2>LittleBlog is one of the best platforms for reading in the world! 
 						The best articles written by the most extraordinary people can be found on this website. 
@@ -150,9 +184,9 @@
 				</div>
 				<div class="col-md-3">
 					<div style="text-align: right">
-						<a href="http://www.facebook.com/templatemo" rel="nofollow"><img src="images/facebook.png" alt="Like us on Facebook"></a>
-						<a href="#"><img src="images/twitter.png" alt="Follow us on Twitter"></a>
-						<a href="#"><img src="images/rss.png" alt="RSS feeds"></a>
+						<a href="http://www.facebook.com/templatemo" rel="nofollow"><img src="/LittleBlog/public/images/facebook.png" alt="Like us on Facebook"></a>
+						<a href="#"><img src="/LittleBlog/public/images/twitter.png" alt="Follow us on Twitter"></a>
+						<a href="#"><img src="/LittleBlog/public/images/rss.png" alt="RSS feeds"></a>
 					</div>
 				</div>				
 			</div>
