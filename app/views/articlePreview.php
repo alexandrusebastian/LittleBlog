@@ -161,7 +161,7 @@
 				</div>
 			</div>
 			
-			<div class="row" id="other_downloads">
+			<!--<div class="row" id="other_downloads">
 				<h3 class="col-lg-12">Featured Articles</h3>
 				<div class="col-xs-6 col-sm-3 col-md-3">
 					<a href="http://www.Google.com" rel="nofollow" class="thumbnail">
@@ -207,7 +207,7 @@
 				</div>				
 			</div>
 		</footer>	
-	</div>
+	</div>-->
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

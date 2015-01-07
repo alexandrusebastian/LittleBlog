@@ -42,7 +42,6 @@
 
 						 el[i][j].style.color = (color == "white" ? "black" : "white")
 					}
-
 				} 
 			} 
 
