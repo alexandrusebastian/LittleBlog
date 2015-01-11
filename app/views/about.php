@@ -12,14 +12,14 @@
 	<link href="/LittleBlog/public/css/templatemo_style.css" rel="stylesheet" type="text/css">
 
 	<script>
-	function refresh()
-	{
-		var container = document.getElementById('about');
-		var masthead = document.getElementById('masthead');
-		var content = document.getElementById('content');
-		container.removeChild(masthead);
-		container.insertBefore(masthead, content);
-	}
+		function refresh()
+		{
+			var container = document.getElementById('about');
+			var masthead = document.getElementById('masthead');
+			var content = document.getElementById('content');
+			container.removeChild(masthead);
+			container.insertBefore(masthead, content);
+		}
 
 		function changeBackground() {		
 			
@@ -36,6 +36,7 @@
 				document.getElementsByTagName('h3'), 
 				document.getElementsByTagName('h4') 
 			]; 
+			
 			for (i in el) { 
 				for (j in el[i]) { 
 					if (el[i][j].style) {

@@ -12,46 +12,46 @@
 	<link href="/LittleBlog/public/css/templatemo_style.css" rel="stylesheet" type="text/css">
 
 	<script>
-	function refresh()
-	{
-		var container = document.getElementById('preview');
-		var masthead = document.getElementById('masthead');
-		var content = document.getElementById('img_preview');
-		container.removeChild(masthead);
-		container.insertBefore(masthead, content);
-	}
-	function changeBackground() {		
-			
-			var color = "<?php echo $_SESSION['color'] ?>"
+		function refresh()
+		{
+			var container = document.getElementById('preview');
+			var masthead = document.getElementById('masthead');
+			var content = document.getElementById('img_preview');
+			container.removeChild(masthead);
+			container.insertBefore(masthead, content);
+		}
+		function changeBackground() {		
+				
+				var color = "<?php echo $_SESSION['color'] ?>"
 
-   			document.body.style.background = (color == "white" ? "lightGray" : "black")
+	   			document.body.style.background = (color == "white" ? "lightGray" : "black")
 
-   			var el = [ 
-   				document.getElementsByTagName('div'), 
-   				document.getElementsByTagName('span'),
-   				document.getElementsByTagName('a'), 
-				document.getElementsByTagName('p'), 
-				document.getElementsByTagName('h1'), 
-				document.getElementsByTagName('h2'), 
-				document.getElementsByTagName('h3'), 
-				document.getElementsByTagName('h4') 
-			]; 
-			for (i in el) { 
-				for (j in el[i]) { 
-					if (el[i][j].style) {
+	   			var el = [ 
+	   				document.getElementsByTagName('div'), 
+	   				document.getElementsByTagName('span'),
+	   				document.getElementsByTagName('a'), 
+					document.getElementsByTagName('p'), 
+					document.getElementsByTagName('h1'), 
+					document.getElementsByTagName('h2'), 
+					document.getElementsByTagName('h3'), 
+					document.getElementsByTagName('h4') 
+				]; 
+				
+				for (i in el) { 
+					for (j in el[i]) { 
+						if (el[i][j].style) {
 
-						 el[i][j].style.color = (color == "white" ? "black" : "white")
-					}
+							 el[i][j].style.color = (color == "white" ? "black" : "white")
+						}
 
+					} 
 				} 
-			} 
 
-			var list = document.getElementsByClassName("home")
-			for (var i = 0; i < list.length; i++) {
-				list[i].style.backgroundColor = (color == "white" ? "white" : "black")
+				var list = document.getElementsByClassName("home")
+				for (var i = 0; i < list.length; i++) {
+					list[i].style.backgroundColor = (color == "white" ? "white" : "black")
+				}
 			}
-
-}
 
 	</script>
 </head>
